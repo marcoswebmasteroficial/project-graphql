@@ -1,22 +1,35 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
-import { User } from "../models/user-model";
-import { createUserInput } from "../inputs/create-user-input";
+import { UsersPermissionsLoginPayload } from "../models/UsersPermissionsLoginPayload";
+import { UsersPermissionsRegisterInput } from "../inputs/UsersPermissionsRegisterInput";
 import { plainToClass } from "class-transformer";
 /* import { updateUserInput } from "../inputs/update-user-input"; */
 
 Resolver();
 export class userResolver {
-  @Query(() => [User], { description: "New recipe data" })
+  @Query(() => [UsersPermissionsLoginPayload], {
+    description: "New recipe data",
+  })
   async appointments() {
-    return User.find();
+    return UsersPermissionsLoginPayload.find();
   }
 
-  @Mutation(() => User)
-  async Register(@Arg("data") data: createUserInput): Promise<User> {
-    const user = plainToClass(User, {
-      username: data.username,
+  @Mutation(() => UsersPermissionsLoginPayload)
+  async register(
+    @Arg("data") data: UsersPermissionsRegisterInput
+  ): Promise<UsersPermissionsLoginPayload> {
+    const user = plainToClass(UsersPermissionsLoginPayload, {
+      jwt: "111111",
+      user: {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      },
     });
-    const newUser = await User.create({ ...user }).save();
+    console.log(user);
+    const newUser = await UsersPermissionsLoginPayload.create({
+      ...user,
+    }).save();
+
     return newUser;
   }
 }

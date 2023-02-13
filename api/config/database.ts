@@ -9,6 +9,5 @@ export const AppDataSource = new DataSource({
   password: "123456",
   database: "timoteo",
   entities: [path.resolve(__dirname + "/../dtos/models/*.ts")],
-  logging: ["query", "error"],
+  logging: ["error"],
 });
-console.log(path.resolve(__dirname + "/../dtos/models/*.ts"));

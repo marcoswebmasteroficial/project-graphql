@@ -4,19 +4,31 @@
 # -----------------------------------------------
 
 type Mutation {
-  Register(data: createUserInput!): User!
+  register(data: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
 }
 
 type Query {
   """New recipe data"""
-  appointments: [User!]!
+  appointments: [UsersPermissionsLoginPayload!]!
 }
 
 """Object representing cooking recipe"""
-type User {
+type UsersPermissionsLoginPayload {
+  jwt: String!
+  user: UsersPermissionsMe!
+}
+
+"""Object representing cooking recipe"""
+type UsersPermissionsMe {
+  blocked: Boolean!
+  confirmed: Boolean!
+  email: String!
+  id: ID!
   username: String!
 }
 
-input createUserInput {
+input UsersPermissionsRegisterInput {
+  email: String!
+  password: String!
   username: String!
 }

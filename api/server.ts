@@ -9,6 +9,7 @@ import path from "node:path";
 async function bootsrap() {
   const schema = await buildSchema({
     resolvers: [__dirname + "/dtos/resolvers/*.ts"],
+    validate: false,
     emitSchemaFile: path.resolve(__dirname, "schema.gql"),
   });
   const server = new ApolloServer({ schema });
